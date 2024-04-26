@@ -1,42 +1,89 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package trabaiogit;
-import java.awt.event.ActionEvent;
+   import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
 
 public class atividade extends JFrame implements ActionListener {
 
-    JButton btnOK = new JButton("Click");
-   
+    private static final long serialVersionUID = 1L;
+
+    private JLabel lblNome, lblDataValidade;
+    private JTextField txtNome, txtDataValidade;
+    private JButton btnCadastrar;
+
     public atividade() {
-        setLayout(null);
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("Atividade Git");
-       
-        btnOK.setBounds(300, 250, 100, 50);
-       
-        add(btnOK);
-       
-        btnOK.addActionListener(this);
+        super("Cadastro de Produto");
+
+        // Criar labels
+        lblNome = new JLabel("Nome:");
+        lblDataValidade = new JLabel("Data de Validade (YYYY-MM-DD):");
+
+        // Criar campos de texto
+        txtNome = new JTextField(20);
+        txtDataValidade = new JTextField(10);
+
+        // Criar botão
+        btnCadastrar = new JButton("Cadastrar");
+        btnCadastrar.addActionListener(this);
+
+        // Layout (gerenciador de disposição)
+        getContentPane().setLayout(null); // Layout livre (ajuste manualmente)
+
+        // Posicionamento dos componentes
+        lblNome.setBounds(10, 10, 100, 20);
+        txtNome.setBounds(120, 10, 200, 20);
+
+        lblDataValidade.setBounds(10, 40, 200, 20);
+        txtDataValidade.setBounds(220, 40, 100, 20);
+
+        btnCadastrar.setBounds(150, 70, 100, 20);
+
+        // Adicionar componentes ao JFrame
+        getContentPane().add(lblNome);
+        getContentPane().add(txtNome);
+        getContentPane().add(lblDataValidade);
+        getContentPane().add(txtDataValidade);
+        getContentPane().add(btnCadastrar);
+
+        // Configurações do JFrame
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 150); // Tamanho da janela
+        setLocationRelativeTo(null); // Centralizar a janela
+        setResizable(false); // Desabilitar redimensionamento
+        setVisible(true);
     }
 
-        public static void main(String[] args) {
-             atividade teste = new atividade();
-             teste.setVisible(true);
-         }
-
-     @Override
+    @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource().equals(btnOK)) {
-            JOptionPane.showMessageDialog(this, "mensagem");
-        } else {
-            System.exit(0);
+        if (e.getSource() == btnCadastrar) {
+            String nome = txtNome.getText();
+            String dataValidadeStr = txtDataValidade.getText();
+
+            // Validação de entrada (simplificada)
+            if (nome.isEmpty() || dataValidadeStr.isEmpty()) {
+                // Exibir mensagem de erro
+                System.out.println("Preencha todos os campos!");
+                return;
+            }
+
+            // Converter data de validade (tratamento de erro omitido)
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dataValidade = LocalDate.parse(dataValidadeStr, formatter);
+
+         
+            txtNome.setText("");
+            txtDataValidade.setText("");
         }
+    }
+
+    public static void main(String[] args) {
+        new atividade();
     }
 }
