@@ -7,7 +7,10 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 
 
 public class atividade extends JFrame implements ActionListener {
@@ -17,6 +20,8 @@ public class atividade extends JFrame implements ActionListener {
     private JLabel lblNome, lblDataValidade;
     private JTextField txtNome, txtDataValidade;
     private JButton btnCadastrar;
+    
+    private JTable tblProdutos;
 
     public atividade() {
         super("Cadastro de Produto");
@@ -59,6 +64,21 @@ public class atividade extends JFrame implements ActionListener {
         setResizable(false); // Desabilitar redimensionamento
         setVisible(true);
     }
+    
+    private void popularTabela() {
+    List<Produto> produtos = Produto.getProdutos();
+
+    String[][] dados = new String[produtos.size()][2];
+    for (int i = 0; i < produtos.size(); i++) {
+        Produto produto = produtos.get(i);
+        dados[i][0] = produto.getNome();
+    }
+
+    String[] colunas = {"Nome", "Data de Validade"};
+
+        DefaultTableModel model = new DefaultTableModel(dados, colunas);
+    tblProdutos.setModel(model);
+}
 
     @Override
     public void actionPerformed(ActionEvent e) {
