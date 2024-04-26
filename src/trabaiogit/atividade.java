@@ -3,18 +3,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package trabaiogit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author laboratorio
- */
-public class atividade {
+public class atividade extends JFrame implements ActionListener {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    JButton btnOK = new JButton("Click");
+   
+    public atividade() {
+        setLayout(null);
+        setSize(800, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("Atividade Git");
+       
+        btnOK.setBounds(300, 250, 100, 50);
+       
+        add(btnOK);
+       
+        btnOK.addActionListener(this);
     }
-    
+
+        public static void main(String[] args) {
+             atividade teste = new atividade();
+             teste.setVisible(true);
+         }
+
+     @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource().equals(btnOK)) {
+            JOptionPane.showMessageDialog(this, "mensagem");
+        } else {
+            System.exit(0);
+        }
+    }
 }
